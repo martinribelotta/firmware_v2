@@ -38,14 +38,19 @@ PROJECT_MODULES := modules/$(TARGET)/sapi_rtos \
                    modules/$(TARGET)/freertos \
                    modules/$(TARGET)/base \
                    modules/$(TARGET)/board \
-                   modules/$(TARGET)/chip
+                   modules/$(TARGET)/chip \
+                   modules/$(TARGET)/board
+# WARNING:         ^^^^^^^^^^^^^^^^^^^^^^^--- Respect the above order of library: -lbase -lboard -lchip -lboard
+#                                             Needed for correct symbol linking
 
 # source files folder
-PROJECT_SRC_FOLDERS := $(PROJECT)/src
+PROJECT_SRC_FOLDERS := $(PROJECT)/ $(PROJECT)/../common
 
 # header files folder
-PROJECT_INC_FOLDERS := $(PROJECT)/inc
+PROJECT_INC_FOLDERS := $(PROJECT)/ $(PROJECT)/../common/
+
+LFLAGS+=--specs=nano.specs
+SYMBOLS+=-include $(PROJECT)/../common/FreeRTOSConfig_extra.h
 
 # source files
-PROJECT_C_FILES := $(wildcard $(PROJECT)/src/*.c)
-PROJECT_ASM_FILES := $(wildcard $(PROJECT)/src/*.S)
+PROJECT_C_FILES := $(wildcard $(PROJECT)/*.c) $(wildcard $(PROJECT)/../common/*.c)

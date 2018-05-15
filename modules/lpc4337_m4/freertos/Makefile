@@ -31,8 +31,17 @@
 
 freertos_PATH := modules/lpc4337_m4/freertos
 
-freertos_SRC_FILES += $(wildcard $(freertos_PATH)/src/*.c)
+freertos_PORT := GCC/ARM_CM4F
 
-freertos_SRC_FOLDERS += modules/lpc4337_m4/freertos/src
+freertos_HEAP := 1
 
-freertos_INC_FOLDERS += modules/lpc4337_m4/freertos/inc
+freertos_SRC_FILES += $(wildcard $(freertos_PATH)/*.c)
+freertos_SRC_FILES += $(freertos_PATH)/$(freertos_PORT)/port.c
+freertos_SRC_FILES += $(freertos_PATH)/portable/MemMang/heap_$(freertos_HEAP).c
+
+freertos_SRC_FOLDERS += $(freertos_PATH)
+freertos_SRC_FOLDERS += $(freertos_PATH)/portable/$(freertos_PORT)/
+freertos_SRC_FOLDERS += $(freertos_PATH)/portable/MemMang/
+
+freertos_INC_FOLDERS += $(freertos_PATH)/include
+freertos_INC_FOLDERS += $(freertos_PATH)/portable/$(freertos_PORT)

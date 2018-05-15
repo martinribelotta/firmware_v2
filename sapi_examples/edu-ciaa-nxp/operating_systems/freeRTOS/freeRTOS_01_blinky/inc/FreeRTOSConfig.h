@@ -118,6 +118,7 @@ to exclude the API function. */
 #else
 	#define configPRIO_BITS       5        /* 32 priority levels */
 #endif
+#warning Here 0
 
 #if defined(CORE_M3)
 /* The lowest interrupt priority that can be used in a call to a "set priority"
@@ -140,6 +141,7 @@ to all Cortex-M ports, and do not rely on any particular library functions. */
 #else
 
 #if defined(CORE_M4)
+#warning Here
 /* The lowest interrupt priority that can be used in a call to a "set priority"
 function. */
 #define configLIBRARY_LOWEST_INTERRUPT_PRIORITY			0x3f
